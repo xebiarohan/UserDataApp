@@ -10,7 +10,10 @@
   </head>
   <body>
     <div class="container" [ngStyle]="{ backgroundImage: '' }">
-      <h3>Users</h3>
+      <a routerLink="/user">
+        <button class="btn btn-success pull-left">Add Customer</button>
+      </a>
+
       <table id="tableID" class="table table-striped">
         <thead>
           <tr>
@@ -29,14 +32,16 @@
             <td class="text">
               <button
                 class="btn btn-primary btn-edit"
-                (click)="onEditUser(usr.userId)">
+                (click)="onEditUser(usr.userId)"
+              >
                 Edit
               </button>
             </td>
             <td class="text">
               <button
                 class="btn btn-danger btn-container btn-delete"
-                (click)="onDeleteUser(usr.userId)">
+                (click)="onDeleteUser(usr.userId)"
+              >
                 Delete
               </button>
             </td>

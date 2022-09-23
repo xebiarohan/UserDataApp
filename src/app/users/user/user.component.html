@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
       <div class="col-xs-8 col-sm-8 col-md-6 col-sm-offset-1 col-md-offset-2">
-        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <form (ngSubmit)="onSubmit()" #f="ngForm">
           <div id="user-data">
             <div class="form-group">
               <label for="firstName">First Name</label>
@@ -10,7 +10,7 @@
                 id="firstName"
                 class="form-control"
                 name="firstName"
-                ngModel
+                [ngModel]="fakeUserName"
                 required
               />
             </div>
@@ -48,8 +48,9 @@
                 id="avatar"
                 class="form-control"
                 name="avatar"
-                ngModel
+                [ngModel]="fakeAvatar"
                 required
+                #avatar="ngModel"
               />
             </div>
           </div>
@@ -59,8 +60,8 @@
         </form>
       </div>
 
-      <div *ngIf="user" class="col-xs-4 col-sm-4 col-md-6">
-          <img class="avatar-container" [src]="user.userAvatar"/>
+      <div *ngIf="user || avatar.valid" class="col-xs-4 col-sm-4 col-md-6">
+          <img class="avatar-container" [src]="avatar.control.value"/>
       </div>
     </div>
     <hr />

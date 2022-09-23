@@ -73,27 +73,30 @@ export class AppService {
     deleteUser(id: number): Promise<ResponseStatus> {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                const index = this._users.data.findIndex(user => user.userId === id);
+                const index = this._fetchedUsers.findIndex(user => user.id === id);
                 if (index < 0) {
                     reject({ 'data': new Status('failed') });
                 }
-                this._users.data.splice(index, 1);
+                this._fetchedUsers.splice(index, 1);
 
                 resolve({ 'data': new Status('success') });
             }, this._getRandomDelay());
         });
     }
 
-    updateUser(updatedUser: User) {
-        this._users.data.forEach(currentUser => {
-            if (currentUser.userId === updatedUser.userId) {
-                currentUser.firstName = updatedUser.firstName;
-                currentUser.lastName = updatedUser.lastName;
-                currentUser.userEmail = updatedUser.userEmail;
-                currentUser.userAvatar = updatedUser.userAvatar;
-            }
+    updateUser(updatedUser: User): Promise<ResponseStatus> {
+        return new Promise((resolve, reject) => {
+            this._fetchedUsers.forEach(currentUser => {
+                if (currentUser.id === updatedUser.userId) {
+                    currentUser.first_name = updatedUser.firstName;
+                    currentUser.last_name = updatedUser.lastName;
+                    currentUser.email = updatedUser.userEmail;
+                    currentUser.avatar = updatedUser.userAvatar;
+                }
+            });
+            resolve({ 'data': new Status('success') });
         });
-        return { 'data': Status };
+
     }
 
     validateUser(email: string, password: string) {

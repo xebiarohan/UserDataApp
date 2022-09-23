@@ -15,7 +15,8 @@ import { UserComponent } from './users/user/user.component';
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: 'users', component: UsersComponent, pathMatch: 'full' },
-  { path: 'users/:id', component: UserComponent},
+  { path: 'user/:id', component: UserComponent},
+  { path: 'user', component: UserComponent},
   { path: '**', redirectTo: '' },
 ]
 

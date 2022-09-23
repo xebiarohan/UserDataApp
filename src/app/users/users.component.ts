@@ -26,17 +26,17 @@ export class UsersComponent implements OnInit {
   }
 
   public onEditUser(id: number) {
-    this.router.navigate(['/users/' + id]);
+    this.router.navigate(['/user/' + id]);
   }
 
   public async onDeleteUser(usedId: number) {
     const result = await this.appService.deleteUser(usedId);
+    this.appService.getUsers(this.users.page);
     console.log(result);
   }
 
   public async onPageChange(pageNumber: number) {
     this.appService.getUsers(pageNumber);
-    //this._updateUsersOnCurrentPage();
   }
 
   private _getTitles() {
