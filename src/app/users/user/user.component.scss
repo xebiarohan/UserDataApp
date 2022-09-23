@@ -1,0 +1,17 @@
+.container {
+  margin-top: 30px;
+
+  .avatar-container {
+    width: 45%;
+    height: 85%;
+    padding: 2rem;
+  }
+
+  .btn-container {
+      margin-top: 2rem;
+  }
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

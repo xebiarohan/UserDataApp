@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-8 col-sm-8 col-md-6 col-sm-offset-1 col-md-offset-2">
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+          <div id="user-data">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                class="form-control"
+                name="firstName"
+                ngModel
+                required
+              />
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  class="form-control"
+                  name="lastName"
+                  ngModel
+                  required
+                />
+              </div>
+            <div class="form-group">
+              <label for="email">E-Mail</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                name="email"
+                ngModel
+                email
+                required
+                #email="ngModel"
+              />
+              <span class="help-block" *ngIf="!email.valid && email.touched"
+                >Please enter a valid email!</span
+              >
+            </div>
+            <div class="form-group">
+                <label for="avatar">Avatar</label>
+                <input
+                type="text"
+                id="avatar"
+                class="form-control"
+                name="avatar"
+                ngModel
+                required
+              />
+            </div>
+          </div>
+          <button class="btn btn-primary btn-container" type="submit" [disabled]="!f.valid">
+            Submit
+          </button>
+        </form>
+      </div>
+
+      <div *ngIf="user" class="col-xs-4 col-sm-4 col-md-6">
+          <img class="avatar-container" [src]="user.userAvatar"/>
+      </div>
+    </div>
+    <hr />
+  </div>
+  
