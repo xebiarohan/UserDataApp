@@ -4,7 +4,7 @@
       <form (ngSubmit)="onSubmit()" #f="ngForm">
         <div id="user-data">
           <div class="form-group">
-            <label for="firstName">First Name</label>
+            <label id="firstname-label" for="firstName">First Name</label>
             <input
               type="text"
               id="firstName"
@@ -16,7 +16,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="lastName">Last Name</label>
+            <label id="lastname-label" for="lastName">Last Name</label>
             <input
               type="text"
               id="lastName"
@@ -28,7 +28,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="email">E-Mail</label>
+            <label id="email-label" for="email">E-Mail</label>
             <input
               type="email"
               id="email"
@@ -56,7 +56,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="avatar">Avatar</label>
+            <label id="avatar-label" for="avatar">Avatar</label>
             <input
               type="text"
               id="avatar"
@@ -72,26 +72,21 @@
         <button
           class="btn btn-primary btn-container"
           type="button"
-          (click)="onClose()"
-        >
-          Back
-        </button>
+          id="back"
+          (click)="onClose()">Back</button>
         <button
           class="btn btn-primary btn-container"
           type="button"
+          id="edit"
           *ngIf="isInViewMode"
-          (click)="onEnablingEditMode()"
-        >
-          Edit
-        </button>
+          (click)="onEnablingEditMode()">Edit</button>
         <button
           class="btn btn-primary btn-container"
           type="submit"
+          id="submit"
           *ngIf="!isInViewMode"
           [disabled]="!f.valid"
-        >
-          Submit
-        </button>
+        >Submit</button>
       </form>
     </div>
 

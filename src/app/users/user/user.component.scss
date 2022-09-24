@@ -10,18 +10,15 @@
     z-index: 1000;
   }
 
-  .content-container {
-    z-index: 0;
-    .avatar-container {
-      width: 45%;
-      height: 85%;
-      padding: 2rem;
-    }
-  
-    .btn-container {
-        margin-top: 2rem;
-        margin-right: 2rem;
-    }
+  .avatar-container {
+    width: 45%;
+    height: 85%;
+    padding: 2rem;
+  }
+
+  .btn-container {
+      margin-top: 2rem;
+      margin-right: 2rem;
   }
 
 

@@ -11,14 +11,7 @@ import { FormatPipe } from 'src/pipes/format.pipe';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { UserComponent } from './users/user/user.component';
-
-const appRoutes: Routes = [
-  { path: '', component: LoginComponent, pathMatch: 'full' },
-  { path: 'users', component: UsersComponent, pathMatch: 'full' },
-  { path: 'user/:id', component: UserComponent},
-  { path: 'user', component: UserComponent},
-  { path: '**', redirectTo: '' },
-]
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +22,7 @@ const appRoutes: Routes = [
     UserComponent
   ],
   imports: [
-    BrowserModule, FormsModule, RouterModule.forRoot(appRoutes), NgbModule, NoopAnimationsModule, MatPaginatorModule
+    BrowserModule, FormsModule, AppRoutingModule, NgbModule, NoopAnimationsModule, MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

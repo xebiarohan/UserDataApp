@@ -30,7 +30,7 @@ export class AppService {
 
     private _users: Users = new Users();
     public $users: Subject<Users> = new Subject<Users>();
-    private _fetchedUsers!: UserDto[];
+    private _fetchedUsers: UserDto[] = [];
 
     fetchAllUsers(): void {
         this._fetchedUsers = users.data;
@@ -126,15 +126,14 @@ export class AppService {
 
     }
 
+    _getRandomDelay(): number {
+        return (Math.floor(Math.random() * 3) + 1) * 1000;
+    }
+
     getUserId(): number {
         const ids = this._fetchedUsers.map(user => user.id);
         const currentMaxId = Math.max(...ids);
         return currentMaxId + 1;
 
     }
-
-    private _getRandomDelay(): number {
-        return (Math.floor(Math.random() * 3) + 1) * 1000;
-    }
-
 }

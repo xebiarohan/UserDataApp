@@ -7,7 +7,7 @@ import { AppService } from './app.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Creed & Bear users application';
+  title = 'Creed & Bear';
 
   constructor(private appService: AppService) { }
 

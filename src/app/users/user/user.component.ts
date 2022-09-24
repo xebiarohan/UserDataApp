@@ -39,16 +39,7 @@ export class UserComponent implements OnInit{
     }
   }
 
-  // ngAfterViewInit() {
-  //   this.route.params.subscribe((param: Params) => {
-  //     if (param['id']) {
-  //       this.isInViewMode = true;
-  //       this.getUserToUpdate(param['id']);
-  //     }
-  //   });
-  // }
-
-  onSubmit() {
+  onSubmit():  void {
     if (this.isInEditMode) {
       this._updateUser();
     } else {
@@ -57,7 +48,7 @@ export class UserComponent implements OnInit{
   }
 
 
-  async getUserToUpdate(id: number) {
+  async getUserToUpdate(id: number): Promise<void> {
     const userResponse = await this.appService.getUser(id);
     if (userResponse.data && userResponse.data instanceof User) {
       this.user = userResponse.data;
@@ -65,16 +56,16 @@ export class UserComponent implements OnInit{
     }
   }
 
-  onClose() {
+  onClose(): void {
     this.router.navigate(['/users']);
   }
 
-  onEnablingEditMode() {
+  onEnablingEditMode(): void {
     this.isInViewMode = false;
     this.isInEditMode = true;
   }
 
-  private _populateFormValues() {
+  private _populateFormValues(): void {
     this.form.setValue({
       firstName: this.user.firstName,
       lastName: this.user.lastName,
@@ -83,7 +74,7 @@ export class UserComponent implements OnInit{
     })
   }
 
-  private _updateUser() {
+  private _updateUser(): void {
     const user = new User(this.user.userId, this.form.value.email, this.form.value.firstName, this.form.value.lastName, this.form.value.avatar);
     this.appService.updateUser(user).then(response => {
       if (response.data && response.data.status === 'success') {
@@ -93,7 +84,7 @@ export class UserComponent implements OnInit{
     this.isInEditMode = false;
   }
 
-  private async _createNewUser() {
+  private async _createNewUser(): Promise<void> {
 
     const user = new UserDto(this.appService.getUserId(),
       this.form.value.email,

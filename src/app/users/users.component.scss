@@ -1,11 +1,29 @@
-.btn-edit {
-    background-color: lightblue;
+body {
+    background-image: url("../../assets/background.jpg");
+    background-color: #cccccc;
+    //position: fixed;
+    left: 0;
+    top: 0;
+    width: auto;
+    height: auto;
 }
 
-.btn-delete {
-    background-color: lightcoral;
-}
-
-.text {
-    padding-top: 3.5rem;
+.container {
+    .btn-edit {
+        background-color: lightblue;
+    }
+    
+    .btn-delete {
+        background-color: lightcoral;
+    }
+    
+    .btn-container {
+       padding: 3% 1%;
+        float: right;
+    }
+    
+    .text {
+        color: white;
+        padding-top: 3.5rem;
+    }
 }
