@@ -10,7 +10,12 @@
   </head>
   <body>
     <div class="container">
-      <a routerLink="/user">
+      <div class="text-center" [ngStyle]="{'margin': '30%'}" *ngIf="!users">
+        <div class="spinner-border px-2"  role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <a routerLink="/user" *ngIf="users">
         <button class="btn btn-success pull-left">Add Customer</button>
       </a>
 

@@ -12,7 +12,7 @@ import { UserDto } from 'src/app/models/userDto';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit{
 
   public user!: User;
   isInEditMode: boolean = false;
@@ -33,13 +33,20 @@ export class UserComponent implements OnInit {
       }
     });
 
-    if (!this.isInEditMode) {
+    if (!this.isInViewMode) {
       this.fakeUserName = faker.internet.userName();
       this.fakeAvatar = faker.internet.avatar();
     }
-
-
   }
+
+  // ngAfterViewInit() {
+  //   this.route.params.subscribe((param: Params) => {
+  //     if (param['id']) {
+  //       this.isInViewMode = true;
+  //       this.getUserToUpdate(param['id']);
+  //     }
+  //   });
+  // }
 
   onSubmit() {
     if (this.isInEditMode) {

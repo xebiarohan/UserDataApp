@@ -4,7 +4,7 @@ import { Users } from './models/users';
 import { User } from './models/user';
 import { UserDto } from './models/userDto';
 import { Status } from './models/success';
-import { BehaviorSubject, Subject } from 'rxjs';
+import {Subject } from 'rxjs';
 
 
 interface ResponseStatus {
@@ -15,7 +15,12 @@ interface UserResponse {
     'data': User
 }
 
-
+interface ValidatedUserResponse {
+    'data': {
+        status: Status,
+        user: User
+    }
+}
 
 @Injectable({
     providedIn: 'root'
@@ -27,11 +32,11 @@ export class AppService {
     public $users: Subject<Users> = new Subject<Users>();
     private _fetchedUsers!: UserDto[];
 
-    fetchAllUsers() {
+    fetchAllUsers(): void {
         this._fetchedUsers = users.data;
     }
 
-    getUsers(pageNumber: number) {
+    getUsers(pageNumber: number): void {
         const start = pageNumber === 1 ? 0 : (pageNumber - 1) * this._users.per_page;
         const end = pageNumber === 1 ? this._users.per_page : pageNumber * this._users.per_page;
         this._users.data = [];
@@ -45,7 +50,7 @@ export class AppService {
         this._users.total_pages = this._fetchedUsers.length / 6 + (this._users.total % 6 === 0 ? 0 : 1);
         setTimeout(() => {
             this.$users.next(this._users);
-        }, 100);
+        }, this._getRandomDelay());
     }
 
     getUser(id: number): Promise<UserResponse | ResponseStatus> {
@@ -57,7 +62,7 @@ export class AppService {
                 } else {
                     reject({ 'data': new Status('failed') });
                 }
-            }, 0)
+            }, this._getRandomDelay());
 
         });
     }
@@ -65,7 +70,9 @@ export class AppService {
     createUser(user: UserDto): Promise<ResponseStatus> {
         return new Promise((resolve, reject) => {
             this._fetchedUsers.push(user);
-            resolve({ 'data': new Status('success') });
+            setTimeout(() => {
+                resolve({ 'data': new Status('success') })
+            }, this._getRandomDelay());
         });
     }
 
@@ -93,12 +100,14 @@ export class AppService {
                     currentUser.avatar = updatedUser.userAvatar;
                 }
             });
-            resolve({ 'data': new Status('success') });
+            setTimeout(() => {
+                resolve({ 'data': new Status('success') });
+            }, this._getRandomDelay());
         });
 
     }
 
-    validateUser(email: string, password: string) {
+    validateUser(email: string, password: string): ValidatedUserResponse | ResponseStatus {
         const user = this._fetchedUsers.find(user => {
             return (user.email === email && user.password === password)
         });
@@ -111,9 +120,7 @@ export class AppService {
             }
         } else {
             return {
-                'data': {
-                    'status': 'failed',
-                }
+                'data': new Status('failed')
             }
         }
 
@@ -126,11 +133,8 @@ export class AppService {
 
     }
 
-    private _getRandomDelay() {
+    private _getRandomDelay(): number {
         return (Math.floor(Math.random() * 3) + 1) * 1000;
     }
-
-
-
 
 }
