@@ -27,7 +27,6 @@ export class AppService {
     public $users: Subject<Users> = new Subject<Users>();
     private _fetchedUsers!: UserDto[];
 
-
     fetchAllUsers() {
         this._fetchedUsers = users.data;
     }
@@ -61,13 +60,13 @@ export class AppService {
             }, 0)
 
         });
-        // const user = this._users.data.find(user => user?.userId === id);
-        // return { 'data': user };
     }
 
-    createuser(user: User) {
-        this._users.data.push(user);
-        return { 'data': { 'status': 'success' } };
+    createUser(user: UserDto): Promise<ResponseStatus> {
+        return new Promise((resolve, reject) => {
+            this._fetchedUsers.push(user);
+            resolve({ 'data': new Status('success') });
+        });
     }
 
     deleteUser(id: number): Promise<ResponseStatus> {
@@ -120,9 +119,18 @@ export class AppService {
 
     }
 
+    getUserId(): number {
+        const ids = this._fetchedUsers.map(user => user.id);
+        const currentMaxId = Math.max(...ids);
+        return currentMaxId + 1;
+
+    }
+
     private _getRandomDelay() {
         return (Math.floor(Math.random() * 3) + 1) * 1000;
     }
+
+
 
 
 }

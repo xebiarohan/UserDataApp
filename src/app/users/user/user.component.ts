@@ -5,6 +5,7 @@ import { AppService } from 'src/app/app.service';
 import { User } from 'src/app/models/user';
 
 import { faker } from '@faker-js/faker';
+import { UserDto } from 'src/app/models/userDto';
 
 @Component({
   selector: 'app-user',
@@ -17,6 +18,7 @@ export class UserComponent implements OnInit {
   isInEditMode: boolean = false;
   fakeUserName: string = '';
   fakeAvatar: string = '';
+  isInViewMode = false;
 
   @ViewChild('f', { static: false }) form!: NgForm;
 
@@ -26,31 +28,18 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((param: Params) => {
       if (param['id']) {
-        this.isInEditMode = true;
+        this.isInViewMode = true;
         this.getUserToUpdate(param['id']);
       }
     });
 
-    if(!this.isInEditMode) {
+    if (!this.isInEditMode) {
       this.fakeUserName = faker.internet.userName();
       this.fakeAvatar = faker.internet.avatar();
     }
 
 
   }
-
-  // ngAfterViewInit() {
-  //   if(!this.isInEditMode) {
-  //     console.log();
-  //     console.log(this.form);
-  //     // this.form.setValue({
-  //     //   firstName: faker.internet.userName(),
-  //     //   lastName: '',
-  //     //   email: '',
-  //     //   avatar: faker.image.avatar()
-  //     // });
-  //   }
-  // }
 
   onSubmit() {
     if (this.isInEditMode) {
@@ -69,6 +58,15 @@ export class UserComponent implements OnInit {
     }
   }
 
+  onClose() {
+    this.router.navigate(['/users']);
+  }
+
+  onEnablingEditMode() {
+    this.isInViewMode = false;
+    this.isInEditMode = true;
+  }
+
   private _populateFormValues() {
     this.form.setValue({
       firstName: this.user.firstName,
@@ -81,17 +79,27 @@ export class UserComponent implements OnInit {
   private _updateUser() {
     const user = new User(this.user.userId, this.form.value.email, this.form.value.firstName, this.form.value.lastName, this.form.value.avatar);
     this.appService.updateUser(user).then(response => {
-      if (response.data && response.data.success === 'success') {
-          this.router.navigate(['/users']);
+      if (response.data && response.data.status === 'success') {
+        this.router.navigate(['/users']);
       }
     });
     this.isInEditMode = false;
   }
 
-  private _createNewUser() {
-    const user = new User(this.user.userId, this.form.value.email, this.form.value.firstName, this.form.value.lastName, this.form.value.avatar);
-    
+  private async _createNewUser() {
 
+    const user = new UserDto(this.appService.getUserId(),
+      this.form.value.email,
+      this.form.value.password,
+      this.form.value.firstName,
+      this.form.value.lastName,
+      this.form.value.avatar);
+
+    const response = await this.appService.createUser(user);
+
+    if (response && response?.data.status === 'success') {
+      this.router.navigate(['/users']);
+    }
   }
 
 }

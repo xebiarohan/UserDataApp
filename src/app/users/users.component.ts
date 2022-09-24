@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { Users } from '../models/users';
 
-import { MatPaginatorModule, MatPaginatorDefaultOptions } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { User } from '../models/user';
 import { Router } from '@angular/router';
 
 @Component({
@@ -25,7 +22,7 @@ export class UsersComponent implements OnInit {
 
   }
 
-  public onEditUser(id: number) {
+  public onViewUser(id: number) {
     this.router.navigate(['/user/' + id]);
   }
 

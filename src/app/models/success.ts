@@ -1,4 +1,4 @@
 export class Status {
 
-    constructor(public success: string) { }
+    constructor(public status: string) { }
 }

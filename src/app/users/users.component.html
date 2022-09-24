@@ -9,7 +9,7 @@
     />
   </head>
   <body>
-    <div class="container" [ngStyle]="{ backgroundImage: '' }">
+    <div class="container">
       <a routerLink="/user">
         <button class="btn btn-success pull-left">Add Customer</button>
       </a>
@@ -32,16 +32,14 @@
             <td class="text">
               <button
                 class="btn btn-primary btn-edit"
-                (click)="onEditUser(usr.userId)"
-              >
-                Edit
+                (click)="onViewUser(usr.userId)">
+                View
               </button>
             </td>
             <td class="text">
               <button
                 class="btn btn-danger btn-container btn-delete"
-                (click)="onDeleteUser(usr.userId)"
-              >
+                (click)="onDeleteUser(usr.userId)">
                 Delete
               </button>
             </td>
