@@ -10,6 +10,9 @@ Run `npm install` to build the project.
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Credentials
+The credentials for the application is in https://github.com/xebiarohan/UserDataApp/blob/main/src/assets/users.json
+
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
