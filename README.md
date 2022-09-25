@@ -25,4 +25,25 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 ## Screenshots
 
-The screenshots of the project is added in the project under screenshot folder
+Login Screen
+
+![UI](https://github.com/xebiarohan/UserDataApp/blob/main/screenshots/Login.png)
+
+Users page
+![UI](https://github.com/xebiarohan/UserDataApp/blob/main/screenshots/List_users.png)
+
+Pagination
+![UI](https://github.com/xebiarohan/UserDataApp/blob/main/screenshots/Pagination.png)
+
+Display user details
+![UI](https://github.com/xebiarohan/UserDataApp/blob/main/screenshots/View_user.png)
+
+Edit user
+![UI](https://github.com/xebiarohan/UserDataApp/blob/main/screenshots/Edit_user.png)
+
+Add new user
+![UI](https://github.com/xebiarohan/UserDataApp/blob/main/screenshots/Add_new_user.png)
+
+Test report
+![UI](https://github.com/xebiarohan/UserDataApp/blob/main/screenshots/Test_report.png)
+
