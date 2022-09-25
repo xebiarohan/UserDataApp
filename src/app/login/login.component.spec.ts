@@ -37,14 +37,12 @@ describe('LoginComponent', () => {
 
   it('should check input field email is present and not disabled', () => {
     const email = fixture.debugElement.query(By.css('.email'));
-   // let queryByLabel = fixture.debugElement.query(By.css("input[for=email]"));
     expect(email).toBeTruthy();
     expect(email.nativeElement.disabled).toBeFalsy();
   });
 
   it('should check input field password is present and not disabled', () => {
     const password = fixture.debugElement.query(By.css('.password'));
-   // let queryByLabel = fixture.debugElement.query(By.css("input[for=email]"));
     expect(password).toBeTruthy();
     expect(password.nativeElement.disabled).toBeFalsy();
   });

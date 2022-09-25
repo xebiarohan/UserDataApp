@@ -5,8 +5,15 @@
     //position: fixed;
     left: 0;
     top: 0;
-    width: auto;
+    width: 100vw;
+    min-height: 100vh;
     height: auto;
+
+    .spinner {
+        width: 100%;
+        height: 100vh;
+        padding: 50vh;
+    }
 
     .btn-edit {
         background-color: lightblue;
@@ -24,5 +31,9 @@
     .text {
         color: white;
         padding-top: 3.5rem;
+    }
+
+    .page-content {
+        cursor: pointer;
     }
 }

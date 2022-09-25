@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../app.service';
-import { Users } from '../models/users';
+import { Users } from '../../models/users';
 
 import { Router } from '@angular/router';
+import { UserDataService } from '../user-data.service';
 
 @Component({
   selector: 'app-users',
@@ -13,11 +13,12 @@ export class UsersComponent implements OnInit {
 
   users!: Users;
   headers!: string[];
-  constructor(private appService: AppService, private router: Router) { }
+  constructor(private userDataService: UserDataService, private router: Router) { }
   pages!: number[];
+  something: boolean = true;
 
   ngOnInit(): void {
-    this.appService.getUsers(1);
+    this.userDataService.getUsers(1);
     this._updateUsersOnCurrentPage();
 
   }
@@ -27,13 +28,12 @@ export class UsersComponent implements OnInit {
   }
 
   public async onDeleteUser(usedId: number) {
-    const result = await this.appService.deleteUser(usedId);
-    this.appService.getUsers(this.users.page);
-    console.log(result);
+    const result = await this.userDataService.deleteUser(usedId);
+    this.userDataService.getUsers(this.users.page);
   }
 
   public async onPageChange(pageNumber: number) {
-    this.appService.getUsers(pageNumber);
+    this.userDataService.getUsers(pageNumber);
   }
 
   private _getTitles() {
@@ -47,7 +47,7 @@ export class UsersComponent implements OnInit {
   }
 
   private _updateUsersOnCurrentPage() {
-    this.appService.$users.subscribe(users => {
+    this.userDataService.$users.subscribe(users => {
       this.users = users;
       this._getTitles();
       this._setNumberOfPages(users);

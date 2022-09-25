@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import users from '../assets/users.json';
-import { Users } from './models/users';
-import { User } from './models/user';
-import { UserDto } from './models/userDto';
-import { Status } from './models/success';
+import { Users } from '../models/users';
+import { User } from '../models/user';
+import { UserDto } from '../models/userDto';
+import { Status } from '../models/success';
 import {Subject } from 'rxjs';
+import { Constants } from 'src/constants/constants';
 
 
 interface ResponseStatus {
@@ -25,7 +26,7 @@ interface ValidatedUserResponse {
 @Injectable({
     providedIn: 'root'
 })
-export class AppService {
+export class UserDataService {
 
 
     private _users: Users = new Users();
@@ -44,10 +45,8 @@ export class AppService {
             this._users.data.push(new User(user.id, user.email, user.first_name, user.last_name, user.avatar));
         });
 
-        this._users.per_page = 6;
-        this._users.page = pageNumber;
-        this._users.total = users.data.length;
-        this._users.total_pages = this._fetchedUsers.length / 6 + (this._users.total % 6 === 0 ? 0 : 1);
+        this._setInitialUsersDetails(pageNumber);
+
         setTimeout(() => {
             this.$users.next(this._users);
         }, this._getRandomDelay());
@@ -60,7 +59,7 @@ export class AppService {
                 if (user) {
                     resolve({ 'data': user });
                 } else {
-                    reject({ 'data': new Status('failed') });
+                    reject({ 'data': new Status(Constants.FAILED) });
                 }
             }, this._getRandomDelay());
 
@@ -71,7 +70,7 @@ export class AppService {
         return new Promise((resolve, reject) => {
             this._fetchedUsers.push(user);
             setTimeout(() => {
-                resolve({ 'data': new Status('success') })
+                resolve({ 'data': new Status(Constants.SUCCESS) })
             }, this._getRandomDelay());
         });
     }
@@ -81,11 +80,11 @@ export class AppService {
             setTimeout(() => {
                 const index = this._fetchedUsers.findIndex(user => user.id === id);
                 if (index < 0) {
-                    reject({ 'data': new Status('failed') });
+                    reject({ 'data': new Status(Constants.FAILED) });
                 }
                 this._fetchedUsers.splice(index, 1);
 
-                resolve({ 'data': new Status('success') });
+                resolve({ 'data': new Status(Constants.SUCCESS) });
             }, this._getRandomDelay());
         });
     }
@@ -101,7 +100,7 @@ export class AppService {
                 }
             });
             setTimeout(() => {
-                resolve({ 'data': new Status('success') });
+                resolve({ 'data': new Status(Constants.SUCCESS) });
             }, this._getRandomDelay());
         });
 
@@ -114,20 +113,16 @@ export class AppService {
         if (user) {
             return {
                 'data': {
-                    'status': 'success',
+                    'status': Constants.SUCCESS,
                     'user': new User(user.id, user.email, user.first_name, user.last_name, user.avatar)
                 }
             }
         } else {
             return {
-                'data': new Status('failed')
+                'data': new Status(Constants.FAILED)
             }
         }
 
-    }
-
-    _getRandomDelay(): number {
-        return (Math.floor(Math.random() * 3) + 1) * 1000;
     }
 
     getUserId(): number {
@@ -135,5 +130,16 @@ export class AppService {
         const currentMaxId = Math.max(...ids);
         return currentMaxId + 1;
 
+    }
+
+    private _getRandomDelay(): number {
+        return (Math.floor(Math.random() * 3) + 1) * 1000;
+    }
+
+    private _setInitialUsersDetails(pageNumber: number): void {
+        this._users.per_page = 6;
+        this._users.page = pageNumber;
+        this._users.total = users.data.length;
+        this._users.total_pages = this._fetchedUsers.length / 6 + (this._users.total % 6 === 0 ? 0 : 1);
     }
 }

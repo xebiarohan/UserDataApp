@@ -1,18 +1,18 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AppService } from 'src/app/app.service';
-import { User } from 'src/app/models/user';
+import { User } from 'src/models/user';
 
 import { faker } from '@faker-js/faker';
-import { UserDto } from 'src/app/models/userDto';
+import { UserDto } from 'src/models/userDto';
+import { UserDataService } from 'src/app/user-data.service';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit{
+export class UserComponent implements OnInit {
 
   public user!: User;
   isInEditMode: boolean = false;
@@ -23,7 +23,7 @@ export class UserComponent implements OnInit{
   @ViewChild('f', { static: false }) form!: NgForm;
 
 
-  constructor(private appService: AppService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private userDataService: UserDataService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((param: Params) => {
@@ -39,7 +39,7 @@ export class UserComponent implements OnInit{
     }
   }
 
-  onSubmit():  void {
+  onSubmit(): void {
     if (this.isInEditMode) {
       this._updateUser();
     } else {
@@ -49,7 +49,7 @@ export class UserComponent implements OnInit{
 
 
   async getUserToUpdate(id: number): Promise<void> {
-    const userResponse = await this.appService.getUser(id);
+    const userResponse = await this.userDataService.getUser(id);
     if (userResponse.data && userResponse.data instanceof User) {
       this.user = userResponse.data;
       this._populateFormValues();
@@ -76,7 +76,7 @@ export class UserComponent implements OnInit{
 
   private _updateUser(): void {
     const user = new User(this.user.userId, this.form.value.email, this.form.value.firstName, this.form.value.lastName, this.form.value.avatar);
-    this.appService.updateUser(user).then(response => {
+    this.userDataService.updateUser(user).then(response => {
       if (response.data && response.data.status === 'success') {
         this.router.navigate(['/users']);
       }
@@ -86,14 +86,14 @@ export class UserComponent implements OnInit{
 
   private async _createNewUser(): Promise<void> {
 
-    const user = new UserDto(this.appService.getUserId(),
+    const user = new UserDto(this.userDataService.getUserId(),
       this.form.value.email,
       this.form.value.password,
       this.form.value.firstName,
       this.form.value.lastName,
       this.form.value.avatar);
 
-    const response = await this.appService.createUser(user);
+    const response = await this.userDataService.createUser(user);
 
     if (response && response?.data.status === 'success') {
       this.router.navigate(['/users']);

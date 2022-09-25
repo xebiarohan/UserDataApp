@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from './app.service';
+import { UserDataService } from './user-data.service';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +7,9 @@ import { AppService } from './app.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Creed & Bear';
-
-  constructor(private appService: AppService) { }
+  constructor(private userDataService: UserDataService) { }
 
   ngOnInit() {
-    this.appService.fetchAllUsers();
+    this.userDataService.fetchAllUsers();
   }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppService } from '../app.service';
+import { Constants } from 'src/constants/constants';
+import { UserDataService } from '../user-data.service';
 
 @Component({
   selector: 'app-login',
@@ -10,15 +11,15 @@ import { AppService } from '../app.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private appService: AppService, private router: Router) { }
+  constructor(private userDataService: UserDataService, private router: Router) { }
 
   ngOnInit(): void {
-    this.appService.getUsers(1);
+    this.userDataService.getUsers(1);
   }
 
   onSubmit(form: NgForm): void {
-    const validationResponse = this.appService.validateUser(form.value.email, form.value.password);
-    if (validationResponse.data.status === 'success') {
+    const validationResponse = this.userDataService.validateUser(form.value.email, form.value.password);
+    if (validationResponse.data.status === Constants.SUCCESS) {
       this.router.navigate(['/users']);
     }
   }

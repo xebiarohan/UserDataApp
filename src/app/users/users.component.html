@@ -1,58 +1,58 @@
 <div class="users-container">
-  <div class="container">
-    <div class="text-center" [ngStyle]="{ margin: '30%' }" *ngIf="!users">
-      <div class="spinner-border px-2" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
+  <div class="text-center spinner" *ngIf="!users">
+    <div class="spinner-border px-2" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
-    <div class="btn-container">
-      <a routerLink="/user" *ngIf="users">
-        <button id="add-user" class="btn btn-success">Add Customer</button>
-      </a>
-    </div>
-    <table id="tableID" class="table table-striped">
-      <thead>
-        <tr>
-          <th class="text" *ngFor="let header of headers">
-            {{ header | uppercase | format }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let usr of users?.data; let i = index">
-          <td class="text">{{ usr.userId }}</td>
-          <td class="text">{{ usr.userEmail }}</td>
-          <td class="text">{{ usr.firstName }}</td>
-          <td class="text">{{ usr.lastName }}</td>
-          <td><img src="{{ usr.userAvatar }}" /></td>
-          <td class="text">
-            <button
-              class="btn btn-primary btn-edit"
-              (click)="onViewUser(usr.userId)"
-            >
-              View
-            </button>
-          </td>
-          <td class="text">
-            <button
-              class="btn btn-danger btn-container btn-delete"
-              (click)="onDeleteUser(usr.userId)"
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <nav aria-label="Page navigation">
-      <ul class="pagination justify-content-center">
-        <li class="page-item" *ngFor="let pageNumber of pages">
-          <a class="page-link" (click)="onPageChange(pageNumber)">{{
-            pageNumber
-          }}</a>
-        </li>
-      </ul>
-    </nav>
   </div>
+  <div class="container"  *ngIf="users">
+      <div class="btn-container">
+        <a routerLink="/user">
+          <button id="add-user" class="btn btn-success">Add User</button>
+        </a>
+      </div>
+      <table id="tableID" class="table table-striped">
+        <thead>
+          <tr>
+            <th class="text" *ngFor="let header of headers">
+              {{ header | uppercase | format }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usr of users?.data; let i = index">
+            <td class="text">{{ usr.userId }}</td>
+            <td class="text">{{ usr.userEmail }}</td>
+            <td class="text">{{ usr.firstName }}</td>
+            <td class="text">{{ usr.lastName }}</td>
+            <td><img src="{{ usr.userAvatar }}" /></td>
+            <td class="text">
+              <button
+                class="btn btn-primary btn-edit"
+                (click)="onViewUser(usr.userId)"
+              >
+                View
+              </button>
+            </td>
+            <td class="text">
+              <button
+                class="btn btn-danger btn-container btn-delete"
+                (click)="onDeleteUser(usr.userId)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" *ngFor="let pageNumber of pages">
+            <a class="page-link page-content" (click)="onPageChange(pageNumber)">{{
+              pageNumber
+            }}</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
 </div>

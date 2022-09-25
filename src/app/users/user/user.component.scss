@@ -24,6 +24,7 @@
     .label-content {
       color: black;
       font-size: 1.5rem;
+      font-weight: 500;
       padding: 1rem 0rem;
     }
 
@@ -33,9 +34,12 @@
       padding: 2rem;
     }
 
-    .btn-container {
+    .btn-content {
       margin-top: 2rem;
       margin-right: 2rem;
+      .disabled {
+        color: red;
+      }
     }
   }
 

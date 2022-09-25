@@ -5,7 +5,6 @@
     <title>Login page</title>
   </head>
   <body>
-    <!-- partial:index.partial.html -->
     <div id="bg"></div>
 
     <form #form="ngForm" (ngSubmit)="onSubmit(form)">
@@ -32,9 +31,8 @@
       </div>
 
       <div class="form-field">
-        <button class="btn" type="submit">Log in</button>
+        <button class="btn" [disabled]="form.invalid" type="submit">Log in</button>
       </div>
     </form>
-    <!-- partial -->
   </body>
 </html>
