@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700");
 #bg {
-  background-image: url('../../assets/background.jpg');
+  background-image: url("../../assets/background.jpg");
   position: fixed;
   left: 0;
   top: 0;
@@ -11,8 +11,8 @@
 }
 
 body {
-  font-family: 'Lato', sans-serif;
-  color: #4A4A4A;
+  font-family: "Lato", sans-serif;
+  color: #4a4a4a;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,7 +72,7 @@ form input {
   padding: 0.9rem 0.7rem;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   font-size: 17px;
-  color: #4A4A4A;
+  color: #4a4a4a;
   text-indent: 40px;
 }
 form .btn {
@@ -83,9 +83,20 @@ form .btn {
   margin: 0 auto;
   padding: 0.9rem 2.5rem;
   text-align: center;
-  background-color: #47AB11;
+  background-color: #47ab11;
   color: #fff;
   border-radius: 4px;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   font-size: 17px;
+
+
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+
+.error-content {
+  color: red;
 }

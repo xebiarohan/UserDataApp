@@ -28,9 +28,8 @@ interface ValidatedUserResponse {
 })
 export class UserDataService {
 
-
-    private _users: Users = new Users();
     public $users: Subject<Users> = new Subject<Users>();
+    private _users: Users = new Users();
     private _fetchedUsers: UserDto[] = [];
 
     fetchAllUsers(): void {

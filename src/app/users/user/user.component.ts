@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { User } from 'src/models/user';
@@ -77,11 +77,12 @@ export class UserComponent implements OnInit {
   private _updateUser(): void {
     const user = new User(this.user.userId, this.form.value.email, this.form.value.firstName, this.form.value.lastName, this.form.value.avatar);
     this.userDataService.updateUser(user).then(response => {
+      this.isInEditMode = false;
       if (response.data && response.data.status === 'success') {
         this.router.navigate(['/users']);
       }
     });
-    this.isInEditMode = false;
+   
   }
 
   private async _createNewUser(): Promise<void> {
