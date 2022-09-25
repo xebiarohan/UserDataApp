@@ -1,98 +1,108 @@
-<div class="container">
-  <div class="row">
-    <div class="col-xs-8 col-sm-8 col-md-6 col-sm-offset-1 col-md-offset-2">
-      <form (ngSubmit)="onSubmit()" #f="ngForm">
-        <div id="user-data">
-          <div class="form-group">
-            <label id="firstname-label" for="firstName">First Name</label>
-            <input
-              type="text"
-              id="firstName"
-              class="form-control"
-              name="firstName"
-              [disabled]="isInViewMode"
-              [ngModel]="fakeUserName"
-              required
-            />
+<div class="user-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-8 col-sm-8 col-md-6 col-sm-offset-1 col-md-offset-2">
+        <form (ngSubmit)="onSubmit()" #f="ngForm">
+          <div id="user-data">
+            <div class="form-group">
+              <label id="firstname-label" class="label-content" for="firstName">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                class="form-control"
+                name="firstName"
+                [disabled]="isInViewMode"
+                [ngModel]="fakeUserName"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label id="lastname-label" class="label-content" for="lastName">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                class="form-control"
+                name="lastName"
+                [disabled]="isInViewMode"
+                ngModel
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label id="email-label" class="label-content" for="email">E-Mail</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                name="email"
+                [disabled]="isInViewMode"
+                ngModel
+                email
+                required
+                #email="ngModel"
+              />
+              <span class="help-block" *ngIf="!email.valid && email.touched"
+                >Please enter a valid email!</span
+              >
+            </div>
+            <div *ngIf="!isInViewMode && !isInEditMode" class="form-group">
+              <label class="label-content" for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                name="password"
+                ngModel
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label id="avatar-label" class="label-content" for="avatar">Avatar</label>
+              <input
+                type="text"
+                id="avatar"
+                [disabled]="isInViewMode"
+                class="form-control"
+                name="avatar"
+                [ngModel]="fakeAvatar"
+                required
+                #avatar="ngModel"
+              />
+            </div>
           </div>
-          <div class="form-group">
-            <label id="lastname-label" for="lastName">Last Name</label>
-            <input
-              type="text"
-              id="lastName"
-              class="form-control"
-              name="lastName"
-              [disabled]="isInViewMode"
-              ngModel
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label id="email-label" for="email">E-Mail</label>
-            <input
-              type="email"
-              id="email"
-              class="form-control"
-              name="email"
-              [disabled]="isInViewMode"
-              ngModel
-              email
-              required
-              #email="ngModel"
-            />
-            <span class="help-block" *ngIf="!email.valid && email.touched"
-              >Please enter a valid email!</span
-            >
-          </div>
-          <div *ngIf="!isInViewMode && !isInEditMode" class="form-group">
-            <label for="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              class="form-control"
-              name="password"
-              ngModel
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label id="avatar-label" for="avatar">Avatar</label>
-            <input
-              type="text"
-              id="avatar"
-              [disabled]="isInViewMode"
-              class="form-control"
-              name="avatar"
-              [ngModel]="fakeAvatar"
-              required
-              #avatar="ngModel"
-            />
-          </div>
-        </div>
-        <button
-          class="btn btn-primary btn-container"
-          type="button"
-          id="back"
-          (click)="onClose()">Back</button>
-        <button
-          class="btn btn-primary btn-container"
-          type="button"
-          id="edit"
-          *ngIf="isInViewMode"
-          (click)="onEnablingEditMode()">Edit</button>
-        <button
-          class="btn btn-primary btn-container"
-          type="submit"
-          id="submit"
-          *ngIf="!isInViewMode"
-          [disabled]="!f.valid"
-        >Submit</button>
-      </form>
-    </div>
+          <button
+            class="btn btn-primary btn-container"
+            type="button"
+            id="back"
+            (click)="onClose()"
+          >
+            Back
+          </button>
+          <button
+            class="btn btn-primary btn-container"
+            type="button"
+            id="edit"
+            *ngIf="isInViewMode"
+            (click)="onEnablingEditMode()"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-primary btn-container"
+            type="submit"
+            id="submit"
+            *ngIf="!isInViewMode"
+            [disabled]="!f.valid"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
 
-    <div *ngIf="user || avatar.valid" class="col-xs-4 col-sm-4 col-md-6">
-      <img class="avatar-container" [src]="avatar.control.value" />
+      <div *ngIf="user || avatar.valid" class="col-xs-4 col-sm-4 col-md-6">
+        <img class="avatar-container" [src]="avatar.control.value" />
+      </div>
     </div>
+    <hr />
   </div>
-  <hr />
 </div>
